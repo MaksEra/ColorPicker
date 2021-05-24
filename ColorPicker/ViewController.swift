@@ -11,17 +11,15 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var colorArea: UIView!
     
-    @IBOutlet weak var redValue: UILabel!
-    @IBOutlet weak var greenValue: UILabel!
-    @IBOutlet weak var blueValue: UILabel!
-    @IBOutlet weak var opacityValue: UILabel!
+    @IBOutlet weak var redLabel: UILabel!
+    @IBOutlet weak var greenLabel: UILabel!
+    @IBOutlet weak var blueLabel: UILabel!
+    @IBOutlet weak var opacityLabel: UILabel!
     
     @IBOutlet weak var redSlider: UISlider!
     @IBOutlet weak var greenSlider: UISlider!
     @IBOutlet weak var blueSlider: UISlider!
     @IBOutlet weak var opacitySlider: UISlider!
-    
-//    private var backgroundColorView =
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,18 +33,26 @@ class ViewController: UIViewController {
             alpha: 1
         )
         
-        redSlider.minimumValue = 0
-        redSlider.maximumValue = 255
+        updateColor()
         
-        greenSlider.minimumValue = 0
-        greenSlider.maximumValue = 255
+        redSlider.minimumTrackTintColor = .red
+        greenSlider.minimumTrackTintColor = .green
         
-        blueSlider.minimumValue = 0
-        blueSlider.maximumValue = 255
-        
-        opacitySlider.minimumValue = 0
-        opacitySlider.maximumValue = 1
+        redLabel.text = String(format: "%.2f", redSlider.value)
+        greenLabel.text = String(format: "%.2f", greenSlider.value)
+        blueLabel.text = String(format: "%.2f", blueSlider.value)
+        opacityLabel.text = String(format: "%.2f", opacitySlider.value)
     }
+
+    @IBAction func rgbaChangeColor(_ sender: UISlider) {
+        updateColor()
+        
+        redLabel.text = String(format: "%.2f", redSlider.value)
+        greenLabel.text = String(format: "%.2f", greenSlider.value)
+        blueLabel.text = String(format: "%.2f", blueSlider.value)
+        opacityLabel.text = String(format: "%.2f", opacitySlider.value)
+    }
+    
     
     private func updateColor() {
         colorArea.backgroundColor = UIColor(
@@ -56,26 +62,5 @@ class ViewController: UIViewController {
             alpha: CGFloat(opacitySlider.value)
         )
     }
-
-    @IBAction func changedRedColor() {
-        redValue.text = String(format: "%.0f", redSlider.value)
-        updateColor()
-    }
-    
-    @IBAction func changeGreenColor() {
-        greenValue.text = String(format: "%.0f", greenSlider.value)
-        updateColor()
-    }
-    
-    @IBAction func changeBlueColor() {
-        blueValue.text = String(format: "%.0f", blueSlider.value)
-        updateColor()
-    }
-    
-    @IBAction func changeOpacityColor() {
-        opacityValue.text = String(format: "%.0f", opacitySlider.value)
-        updateColor()
-    }
-    
 }
 
